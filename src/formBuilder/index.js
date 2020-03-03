@@ -38,6 +38,7 @@ export default class FormBuilder extends Component {
   }
   constructor(props) {
     super(props);
+    
     const initialState = getInitState(props.fields);
     this.state = {
       fields: {
@@ -45,6 +46,7 @@ export default class FormBuilder extends Component {
       },
       errorStatus: false,
     };
+    props.fields.map(field=>this[field.name] = React.createRef())
     // Supports Nested
     this.getValues = this.getValues.bind(this);
     // Invoked every time whenever any fields's value changes
@@ -69,7 +71,7 @@ export default class FormBuilder extends Component {
     //  reset form values to default as well as errors
     this.resetForm = this.resetForm.bind(this);
     // Manages textInput Focus
-    this.onSummitTextInput = this.onSummitTextInput.bind(this);
+    this.onSubmitTextInput = this.onSubmitTextInput.bind(this);
   }
   componentDidMount() {
     const { formData } = this.props;
@@ -100,12 +102,12 @@ export default class FormBuilder extends Component {
     });
     return { fields: newFields, hiddenFields };
   }
-  onSummitTextInput(name) {
+  onSubmitTextInput(name) {
     const { fields } = this.state;
     const index = Object.keys(fields).indexOf(name);
     if (index !== -1 && this[Object.keys(fields)[index + 1]]
-      && this[Object.keys(fields)[index + 1]].textInput) {
-      this[Object.keys(fields)[index + 1]].textInput._root.focus();
+      && this[Object.keys(fields)[index + 1]]) {
+      this[Object.keys(fields)[index + 1]].focus();
     } else {
       Keyboard.dismiss();
     }
@@ -299,10 +301,10 @@ export default class FormBuilder extends Component {
             const CustomComponentProps = CustomComponentObj.props;
             return (
               <CustomComponent
-                ref={(c) => { this[field.name] = c; }}
+                ref={this[field.name]}
                 {... commonProps}
                 {...CustomComponentProps}
-                onSummitTextInput={this.onSummitTextInput}
+                onSubmitTextInput={this.onSubmitTextInput}
               />
             );
           }
@@ -317,7 +319,7 @@ export default class FormBuilder extends Component {
               <TextInputField
                 ref={(c) => { this[field.name] = c; }}
                 {... commonProps}
-                onSummitTextInput={this.onSummitTextInput}
+                onSubmitTextInput={this.onSubmitTextInput}
               />
             );
           case 'picker':
