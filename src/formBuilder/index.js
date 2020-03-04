@@ -105,11 +105,14 @@ export default class FormBuilder extends Component {
   onSubmitTextInput(name) {
     const { fields } = this.state;
     const index = Object.keys(fields).indexOf(name);
+    const nextField = Object.keys(fields)[index+1]
+    if(fields[nextField].type === 'custom_text_input'){
     if (index !== -1 && this[Object.keys(fields)[index + 1]]
       && this[Object.keys(fields)[index + 1]]) {
       this[Object.keys(fields)[index + 1]].focus();
     } else {
       Keyboard.dismiss();
+    }
     }
   }
   onValueChange(name, value) {
