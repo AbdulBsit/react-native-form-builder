@@ -109,7 +109,7 @@ export default class FormBuilder extends Component {
     if(fields[nextField].type === 'custom_text_input'){
     if (index !== -1 && this[Object.keys(fields)[index + 1]]
       && this[Object.keys(fields)[index + 1]]) {
-      this[Object.keys(fields)[index + 1]].focus();
+      this[Object.keys(fields)[index + 1]].current.focus();
     } else {
       Keyboard.dismiss();
     }
