@@ -114,6 +114,10 @@ export default class FormBuilder extends Component {
       Keyboard.dismiss();
     }
     }
+    else if(fields[nextField].type === 'custom_picker'){
+      this[Object.keys(fields)[index + 1]].current.picker.togglePicker();
+
+    }
   }
   onValueChange(name, value) {
     const valueObj = this.state.fields[name];
