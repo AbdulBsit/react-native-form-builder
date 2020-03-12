@@ -117,6 +117,8 @@ export default class FormBuilder extends Component {
     else if(fields[nextField].type === 'custom_picker'){
       this[Object.keys(fields)[index + 1]].current.picker.togglePicker();
 
+    }else {
+      Keyboard.dismiss();
     }
   }
   onValueChange(name, value) {
