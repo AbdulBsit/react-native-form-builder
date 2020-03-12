@@ -106,7 +106,7 @@ export default class FormBuilder extends Component {
     const { fields } = this.state;
     const index = Object.keys(fields).indexOf(name);
     const nextField = Object.keys(fields)[index+1]
-    if(fields[nextField].type === 'custom_text_input'){
+    if((fields[nextField]?.type??'') === 'custom_text_input'){
     if (index !== -1 && this[Object.keys(fields)[index + 1]]
       && this[Object.keys(fields)[index + 1]]) {
       this[Object.keys(fields)[index + 1]].current.focus();
@@ -114,7 +114,7 @@ export default class FormBuilder extends Component {
       Keyboard.dismiss();
     }
     }
-    else if(fields[nextField].type === 'custom_picker'){
+    else if((fields[nextField]?.type??'') === 'custom_picker'){
       this[Object.keys(fields)[index + 1]].current.picker.togglePicker();
 
     }else {
